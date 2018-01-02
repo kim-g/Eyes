@@ -91,13 +91,7 @@ namespace Eyes
             try
             {
 
-                //Bitmap Pic = (Bitmap)Pic_In;
-                //bitmap = ResizeBMP((Bitmap)Pic.Clone(), 412, 0, 1095, 1080, Pic.PixelFormat);
-                //Pic.Dispose();
                 bitmap = (Bitmap)Pic_In;
-
-                //var filter = new Mirror(false, true);
-                //filter.ApplyInPlace(bitmap);
 
                 // Освобождение ресурсов и присваение новых значений.
                 Image Temp = WebCamVideo;
@@ -136,6 +130,11 @@ namespace Eyes
                 //MessageBox.Show(e.Message);
             }
             return destination_bmp;
+        }
+
+        public Image GetSnapshot()
+        {
+            return (Image)WebCamVideo.Clone();
         }
 
     }

@@ -281,9 +281,9 @@ namespace SQLite
             this.Execute("ALTER TABLE `texts` ADD COLUMN `text_" + LanguageName + "` TEXT;");
         }
 
-        public string GetText(string TextName)
+        public string GetText(string Class, string TextName)
         {
-            DataTable Conf = ReadTable("SELECT `text_" + Language + "` AS 'text' FROM `texts` WHERE `name`='" + TextName + "' LIMIT 1");
+            DataTable Conf = ReadTable("SELECT `text_" + Language + "` AS 'text' FROM `texts` WHERE `class`='" + Class + "' AND `name`='" + TextName + "' LIMIT 1");
             return Conf == null ? "ERROR" : Conf.Rows[0].ItemArray[Conf.Columns.IndexOf("text")].ToString();
         }
     }

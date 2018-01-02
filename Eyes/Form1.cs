@@ -12,10 +12,9 @@ namespace Eyes
 {
     public partial class MainForm : Form
     {
-        SQLite.SQLiteConfig Config;
-        SQLite.SQLiteLanguage Texts;
-        Web_Camera Camera;
-
+        public static SQLite.SQLiteConfig Config;
+        public static SQLite.SQLiteLanguage Texts;
+ 
 
         public MainForm()
         {
@@ -23,13 +22,21 @@ namespace Eyes
             Config = SQLite.SQLiteConfig.Open("config.db");
             Texts = SQLite.SQLiteLanguage.Open("language.db", Config.GetConfigValue("language"));
 
-            Camera = new Web_Camera(0, pictureBox1);
-            Camera.Start_Web_Camera(5);
+            // Настройка всех надписей
+            GetPhotoButton.Text = Texts.GetText("main form", "get photo");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Camera.Stop_Web_Camera();
+            
+        }
+
+        private void GetPhotoButton_Click(object sender, EventArgs e)
+        {
+            Image Snapshot = Camera_Form.GetPhoto(this);
+
+            if (Snapshot != null)
+                pictureBox1.Image = Snapshot;
         }
     }
 }
