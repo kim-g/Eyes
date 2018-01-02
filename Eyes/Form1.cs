@@ -10,11 +10,26 @@ using System.Windows.Forms;
 
 namespace Eyes
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        SQLite.SQLiteConfig Config;
+        SQLite.SQLiteLanguage Texts;
+        Web_Camera Camera;
+
+
+        public MainForm()
         {
             InitializeComponent();
+            Config = SQLite.SQLiteConfig.Open("config.db");
+            Texts = SQLite.SQLiteLanguage.Open("language.db", Config.GetConfigValue("language"));
+
+            Camera = new Web_Camera(0, pictureBox1);
+            Camera.Start_Web_Camera(5);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Camera.Stop_Web_Camera();
         }
     }
 }
